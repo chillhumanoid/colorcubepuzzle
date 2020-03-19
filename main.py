@@ -1,3 +1,4 @@
+
 from cube import cube
 from itertools import permutations, product
 '''
@@ -17,7 +18,47 @@ def start():
     c4_pos = get_possible(cube_4)
     master = list(product(c1_pos, c2_pos, c3_pos, c4_pos))
     final = check_cubes(master, 0)
+    final = check_sol(final)
     print_final(final)
+
+def check_sol(master):
+    test = []
+    c1_sides = []
+    c2_sides = []
+    c3_sides = []
+    c4_sides = []
+    for solutions in master:
+        x = 1
+        for cube in solutions:
+            pair = [get_color(cube[0]["color"]), get_color(cube[2]["color"])]
+            pair_r = [pair[1], pair[0]]
+            if x == 1:
+                if pair in c1_sides or pair_r in c1_sides:
+                    pass
+                else:
+                    c1_sides.append(pair)
+            elif x == 2:
+                if pair in c2_sides or pair_r in c2_sides:
+                    pass
+                else:
+                    c2_sides.append(pair)
+            elif x == 3:
+                if pair in c3_sides or pair_r in c3_sides:
+                    pass
+                else:
+                    c3_sides.append(pair)
+            elif x == 4:
+                if pair in c4_sides or pair_r in c4_sides:
+                    pass
+                else:
+                    c4_sides.append(pair)
+            x += 1
+    c1 = (c1_sides[0][0], c1_sides[1][0], c1_sides[0][1], c1_sides[1][1])
+    c2 = (c2_sides[0][0], c2_sides[1][0], c2_sides[0][1], c2_sides[1][1])
+    c3 = (c3_sides[0][0], c3_sides[1][0], c3_sides[0][1], c3_sides[1][1])
+    c4 = (c4_sides[0][0], c4_sides[1][0], c4_sides[0][1], c4_sides[1][1])
+    master = [c1, c2, c3, c4]
+    return master
 
 def side(color, side):
     s = {"color": color, "side":side}
@@ -58,168 +99,86 @@ def get_color(num):
     elif num == 4:
         return "w"
 
-def get_side(num):
-    if num == 1:
-        return "top"
-    elif num == 2:
-        return "back"
-    elif num == 3:
-        return "bottom"
-    elif num == 4:
-        return "front"
-    elif num == 5 or num == 6:
-        return "side"
-
-def print_cube(cube):
-    for x in cube.values():
-        print(x)
 def print_final(final):
-    y = 1
+    side_1 = []
+    side_2 = []
+    side_3 = []
+    side_4 = []
     for x in final:
-        c1 = x[0]
-        c2 = x[1]
-        c3 = x[2]
-        c4 = x[3]
-        c1_to = c1[0]
-        c1_ba = c1[1]
-        c1_bo = c1[2]
-        c1_fr = c1[3]
-        c1_c_to = get_color(c1_to["color"])
-        c1_c_ba = get_color(c1_ba["color"])
-        c1_c_bo = get_color(c1_bo["color"])
-        c1_c_fr = get_color(c1_fr["color"])
+        side_1.append(x[0])
+        side_2.append(x[1])
+        side_3.append(x[2])
+        side_4.append(x[3])
 
-        c2_to = c2[0]
-        c2_ba = c2[1]
-        c2_bo = c2[2]
-        c2_fr = c2[3]
-        c2_c_to = get_color(c2_to["color"])
-        c2_c_ba = get_color(c2_ba["color"])
-        c2_c_bo = get_color(c2_bo["color"])
-        c2_c_fr = get_color(c2_fr["color"])
+    c1_s1 = "  {} - 1 ".format(side_1[0])
+    c1_s2 = "  {} - 2 ".format(side_2[0])
+    c1_s3 = "  {} - 3 ".format(side_3[0])
+    c1_s4 = "  {} - 4 ".format(side_4[0])
 
-        c3_to = c3[0]
-        c3_ba = c3[1]
-        c3_bo = c3[2]
-        c3_fr = c3[3]
-        c3_c_to = get_color(c3_to["color"])
-        c3_c_ba = get_color(c3_ba["color"])
-        c3_c_bo = get_color(c3_bo["color"])
-        c3_c_fr = get_color(c3_fr["color"])
+    c2_s1 = "  {} - 1 ".format(side_1[1])
+    c2_s2 = "  {} - 2 ".format(side_2[1])
+    c2_s3 = "  {} - 3 ".format(side_3[1])
+    c2_s4 = "  {} - 4 ".format(side_4[1])
 
-        c4_to = c4[0]
-        c4_ba = c4[1]
-        c4_bo = c4[2]
-        c4_fr = c4[3]
-        c4_c_to = get_color(c4_to["color"])
-        c4_c_ba = get_color(c4_ba["color"])
-        c4_c_bo = get_color(c4_bo["color"])
-        c4_c_fr = get_color(c4_fr["color"])
+    c3_s1 = "  {} - 1 ".format(side_1[2])
+    c3_s2 = "  {} - 2 ".format(side_2[2])
+    c3_s3 = "  {} - 3 ".format(side_3[2])
+    c3_s4 = "  {} - 4 ".format(side_4[2])
 
-        c1_s_to = " {}-top    ".format(c1_c_to)
-        c1_s_ba = " {}-back   ".format(c1_c_ba)
-        c1_s_bo = " {}-bottom ".format(c1_c_bo)
-        c1_s_fr = " {}-front  ".format(c1_c_fr)
+    c4_s1 = "  {} - 1 ".format(side_1[3])
+    c4_s2 = "  {} - 2 ".format(side_2[3])
+    c4_s3 = "  {} - 3 ".format(side_3[3])
+    c4_s4 = "  {} - 4 ".format(side_4[3])
 
-        c2_s_to = " {}-top    ".format(c2_c_to)
-        c2_s_ba = " {}-back   ".format(c2_c_ba)
-        c2_s_bo = " {}-bottom ".format(c2_c_bo)
-        c2_s_fr = " {}-front  ".format(c2_c_fr)
-
-        c3_s_to = " {}-top    ".format(c3_c_to)
-        c3_s_ba = " {}-back   ".format(c3_c_ba)
-        c3_s_bo = " {}-bottom ".format(c3_c_bo)
-        c3_s_fr = " {}-front  ".format(c3_c_fr)
-
-        c4_s_to = " {}-top    ".format(c4_c_to)
-        c4_s_ba = " {}-back   ".format(c4_c_ba)
-        c4_s_bo = " {}-bottom ".format(c4_c_bo)
-        c4_s_fr = " {}-front  ".format(c4_c_fr)
-
-        print("---------------------------------------------")
-        print("|                SOLUTION {}                 |".format(y))
-        print("---------------------------------------------")
-        print("|  CUBE 1  |  CUBE 2  |  CUBE 3  |  CUBE 4  |")
-        print("---------------------------------------------")
-        print("|{}|{}|{}|{}|".format(c1_s_to, c2_s_to, c3_s_to, c4_s_to))
-        print("|{}|{}|{}|{}|".format(c1_s_ba, c2_s_ba, c3_s_ba, c4_s_ba))
-        print("|{}|{}|{}|{}|".format(c1_s_bo, c2_s_bo, c3_s_bo, c4_s_bo))
-        print("|{}|{}|{}|{}|".format(c1_s_fr, c2_s_fr, c3_s_fr, c4_s_fr))
-        print("----------------------------------------------")
-        print()
-        y += 1
-
+    print("----------------- -------------------")
+    print("|             SOLUTION              |")
+    print("---------------------------------- --")
+    print("| cube 1 | cube 2 | cube 3 | cube 4 |")
+    print("-------------------------------------")
+    print("|{}|{}|{}|{}|".format(c1_s1, c2_s1, c3_s1, c4_s1))
+    print("|{}|{}|{}|{}|".format(c1_s2, c2_s2, c3_s2, c4_s2))
+    print("|{}|{}|{}|{}|".format(c1_s3, c2_s3, c3_s3, c4_s3))
+    print("|{}|{}|{}|{}|".format(c1_s4, c2_s4, c3_s4, c4_s4))
+    print("-------------------------------------")
+    print()
 def get_possible(cube):
     option_1 = cube[:-2]
     option_2 = [cube[0], cube[2], cube[4], cube[5]]
     option_3 = [cube[1], cube[3], cube[4], cube[5]]
-    perm1 = permutations(option_1)
-    perm2 = permutations(option_2)
-    perm3 = permutations(option_3)
-    l1 = list(perm1)
-    l1_final = l1.copy()
-    l2 = list(perm2)
-    l2_final = l2.copy()
-    l3 = list(perm3)
-    l3_final = l3.copy()
-    master_list = []
-    for i in l1:
-        if i[0]["side"] == 1 and not i[2]["side"] == 3:
-            l1_final.remove(i)
-        elif i[0]["side"] == 2 and not i[2]["side"] == 4:
-            l1_final.remove(i)
-        elif i[0]["side"] == 3 and not i[2]["side"] == 1:
-            l1_final.remove(i)
-        elif i[0]["side"] == 4 and not i[2]["side"] == 2:
-            l1_final.remove(i)
-        elif i[1]["side"] == 1 and not i[3]["side"] == 3:
-            l1_final.remove(i)
-        elif i[1]["side"] == 3 and not i[3]["side"] == 1:
-            l1_final.remove(i)
-        elif i[1]["side"] == 2 and not i[3]["side"] == 4:
-            l1_final.remove(i)
-        elif i[1]["side"] == 4 and not i[3]["side"] == 2:
-            l1_final.remove(i)
-    for i in l2:
-        if i[0]["side"] == 1 and not i[2]["side"] == 3:
-            l2_final.remove(i)
-        elif i[0]["side"] == 3 and not i[2]["side"] == 1:
-            l2_final.remove(i)
-        elif i[0]["side"] == 5 and not i[2]["side"] == 6:
-            l2_final.remove(i)
-        elif i[0]["side"] == 6 and not i[2]["side"] == 5:
-            l2_final.remove(i)
-        elif i[1]["side"] == 1 and not i[3]["side"] == 3:
-            l2_final.remove(i)
-        elif i[1]["side"] == 3 and not i[3]["side"] == 1:
-            l2_final.remove(i)
-        elif i[1]["side"] == 5 and not i[3]["side"] == 6:
-            l2_final.remove(i)
-        elif i[1]["side"] == 6 and not i[3]["side"] == 5:
-            l2_final.remove(i)
-    for i in l3:
-        if i[0]["side"] == 2 and not i[2]["side"] == 4:
-            l3_final.remove(i)
-        elif i[0]["side"] == 4 and not i[2]["side"] == 2:
-            l3_final.remove(i)
-        elif i[0]["side"] == 5 and not i[2]["side"] == 6:
-            l3_final.remove(i)
-        elif i[0]["side"] == 6 and not i[2]["side"] == 5:
-            l3_final.remove(i)
-        elif i[1]["side"] == 2 and not i[3]["side"] == 4:
-            l3_final.remove(i)
-        elif i[1]["side"] == 4 and not i[3]["side"] == 2:
-            l3_final.remove(i)
-        elif i[1]["side"] == 5 and not i[3]["side"] == 6:
-            l3_final.remove(i)
-        elif i[1]["side"] == 6 and not i[3]["side"] == 5:
-            l3_final.remove(i)
-    for item in l1_final:
-        master_list.append(item)
-    for item in l2_final:
-        master_list.append(item)
-    for item in l3_final:
-        master_list.append(item)
-    return master_list
+
+    list_1 = get_final_pos(option_1, 1, 3, 2, 4)
+    list_2 = get_final_pos(option_2, 1, 3, 5, 6)
+    list_3 = get_final_pos(option_3, 2, 4, 5, 6)
+    master = []
+    for a in list_1:
+        master.append(a)
+    for b in list_2:
+        master.append(b)
+    for c in list_3:
+        master.append(c)
+    return master
+
+def get_final_pos(opt, CHECK_1, CHECK_2, CHECK_3, CHECK_4):
+    perm = permutations(opt)
+    li = list(perm)
+    final = li.copy()
+    for i in li:
+        if i[0]["side"] == CHECK_1 and not i[2]["side"] == CHECK_2:
+            final.remove(i)
+        elif i[0]["side"] == CHECK_3 and not i[2]["side"] == CHECK_4:
+            final.remove(i)
+        elif i[0]["side"] == CHECK_2 and not i[2]["side"] == CHECK_1:
+            final.remove(i)
+        elif i[0]["side"] == CHECK_4 and not i[2]["side"] == CHECK_3:
+            final.remove(i)
+        elif i[1]["side"] == CHECK_1 and not i[3]["side"] == CHECK_2:
+            final.remove(i)
+        elif i[1]["side"] == CHECK_2 and not i[3]["side"] == CHECK_1:
+            final.remove(i)
+        elif i[1]["side"] == CHECK_3 and not i[3]["side"] == CHECK_4:
+            final.remove(i)
+        elif i[1]["side"] == CHECK_4 and not i[3]["side"] == CHECK_3:
+            final.remove(i)
+    return final
 
 start()
