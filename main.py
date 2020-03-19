@@ -66,28 +66,21 @@ def side(color, side):
 
 def check_cubes(master, i):
     final = []
-    for x in master:
-        c1 = x[0][i]
-        c2 = x[1][i]
-        c3 = x[2][i]
-        c4 = x[3][i]
-        c1_c = c1["color"]
-        c2_c = c2["color"]
-        c3_c = c3["color"]
-        c4_c = c4["color"]
-        if c1_c == c2_c or c1_c == c3_c or c1_c == c4_c:
-            pass
-        elif c2_c == c3_c or c2_c == c4_c:
-            pass
-        elif c3_c == c4_c:
-            pass
-        else:
-            final.append(x)
-    if not i == 3:
-        i += 1
-        return check_cubes(final, i)
-    else:
-        return final
+    for i in range(4):
+        for x in master:
+            c1 = x[0][i]
+            c2 = x[1][i]
+            c3 = x[2][i]
+            c4 = x[3][i]
+            c1c = c1["color"]
+            c2c = c2["color"]
+            c3c = c3["color"]
+            c4c = c4["color"]
+            if not (c1c==c2c or c1c==c3c or c1c==c4c or c2c==c3c or c2c==c4c or c3c==c4c):
+                final.append(x)
+        master = final.copy()
+        final = []
+    return master
 
 def get_color(num):
     if num == 1:
