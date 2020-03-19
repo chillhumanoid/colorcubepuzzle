@@ -136,16 +136,17 @@ def print_final(final):
         c4_s_bo = " {}-bottom ".format(c4_c_bo)
         c4_s_fr = " {}-front  ".format(c4_c_fr)
 
-
-        print("|                SOLUTION {}                |".format(y))
+        print("---------------------------------------------")
+        print("|                SOLUTION {}                 |".format(y))
+        print("---------------------------------------------")
         print("|  CUBE 1  |  CUBE 2  |  CUBE 3  |  CUBE 4  |")
-        print("-------------------------------------------")
-        print("{}|{}|{}|{}".format(c1_s_to, c2_s_to, c3_s_to, c4_s_to))
-        print("{}|{}|{}|{}".format(c1_s_ba, c2_s_ba, c3_s_ba, c4_s_ba))
-        print("{}|{}|{}|{}".format(c1_s_bo, c2_s_bo, c3_s_bo, c4_s_bo))
-        print("{}|{}|{}|{}".format(c1_s_fr, c2_s_fr, c3_s_fr, c4_s_fr))
+        print("---------------------------------------------")
+        print("|{}|{}|{}|{}|".format(c1_s_to, c2_s_to, c3_s_to, c4_s_to))
+        print("|{}|{}|{}|{}|".format(c1_s_ba, c2_s_ba, c3_s_ba, c4_s_ba))
+        print("|{}|{}|{}|{}|".format(c1_s_bo, c2_s_bo, c3_s_bo, c4_s_bo))
+        print("|{}|{}|{}|{}|".format(c1_s_fr, c2_s_fr, c3_s_fr, c4_s_fr))
+        print("----------------------------------------------")
         print()
-        print("-------------------------------------------")
         y += 1
 
 def get_possible(cube):
